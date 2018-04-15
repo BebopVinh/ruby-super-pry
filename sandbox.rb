@@ -12,12 +12,30 @@ require 'pry'
 # WRITE TESTS IN spec/sandbox_spec.rb
 # RUN TESTS IN TERMINAL BY TYPING: rspec
 
-def factorial(num)
-  if num < 0
-    'please put in a positive integer'
-  elsif num == 0
-    1
-  else
-    num * factorial(num - 1)
+class Foo
+  def a()
+    binding.pry
+    yield self
+  end
+
+  def b()
+    yield
+  end
+
+  def c()
+    yield "Bar"
+  end
+
+  def d()
+    yield 1, 2, "scuba"
+  end
+
+  def to_s()
+    "A!"
   end
 end
+
+Foo.new.a {|x| puts x } #=> A!
+# Foo.new.b {|x| puts x } #=> (a blank line, nil was yielded)
+# Foo.new.c {|x| puts x } #=> Bar
+# Foo.new.d {|x, y, z| puts z } #=> scuba
